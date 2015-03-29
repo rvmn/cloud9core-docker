@@ -46,4 +46,4 @@ fdrmi() { docker rmi $(docker images -q); }
 fdbu() { docker build -t=$1; }
 fdhelp() { alias | grep 'alias d' | sed 's/^\([^=]*\)=[^"]*"\([^"]*\)">0.*/\1                =>                \2/'| sed "s/['|\']//g" | sort; }
 fdalias() { grep -q $1 ~/.bashrc && sed "s/$1.*/$1(){ $2 ; }/" -i ~/.bashrc || sed "$ a\\$1(){ $2 ; }" -i ~/.bashrc; source ~/.bashrc }
-fralias() { sed -i ‘s/$1/$2/’ ~/.bashrc; source ~/.bashrc }
+fralias() { sed -i "s/$1/$2/" ~/.bashrc; source ~/.bashrc; }
