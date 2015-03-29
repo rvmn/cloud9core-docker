@@ -48,6 +48,7 @@ ADD conf/c9.conf /etc/supervisor/conf.d/
 # Add volumes
 RUN mkdir ~/workspace
 VOLUME /workspace
+VOLUME /var/lib/docker
 
 # ------------------------------------------------------------------------------
 # Clean up APT when done.
