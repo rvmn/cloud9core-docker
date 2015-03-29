@@ -40,11 +40,11 @@ fdsa() { docker start $(docker ps -a -q); }
 fdsta() { docker stop $(docker ps -a -q); }
 fdsav() { dst $([ -z $2 ] && echo $(dl) || echo $1); dcm $([ -z $2 ] && echo $(dl) || echo $1) $2; }
 fdsavs() { dsav $([ -z $2 ] && echo $(dl) || echo $1) $2; ds $([ -z $2 ] && echo $(dl) || echo $1); }
-fdsavi() { dst $1; dcm $(dl) $(din $()) ; }
+fdsavi() { dst $1; dcm $(dl) $(din $()); }
 fdprm() { docker rm $(docker ps -a -q); }
 fdrmi() { docker rmi $(docker images -q); }
 fdbu() { docker build -t=$1; }
 fdhelp() { alias | grep 'alias d' | sed 's/^\([^=]*\)=[^"]*"\([^"]*\)">0.*/\1                =>                \2/'| sed "s/['|\']//g" | sort; }
-fdalias() { grep -q $1 ~/.bashrc && sed "s/$1.*/$1(){ $2 ; }/" -i ~/.bashrc || sed "$ a\\$1(){ $2 ; }" -i ~/.bashrc; source ~/.bashrc }
+fdalias() { grep -q $1 ~/.bashrc && sed "s/$1.*/$1(){ $2 ; }/" -i ~/.bashrc || sed "$ a\\$1(){ $2 ; }" -i ~/.bashrc; source ~/.bashrc; }
 fralias() { sed -i "s/$1/$2/" ~/.bashrc; source ~/.bashrc; }
 
