@@ -5,6 +5,7 @@
 FROM dockerfile/supervisor
 MAINTAINER rvmn <di_blabla@hotmail.com>
 
+RUN chsh -s /bin/bash root
 # ------------------------------------------------------------------------------
 # Install base
 RUN apt-get update
