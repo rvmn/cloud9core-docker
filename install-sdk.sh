@@ -94,7 +94,7 @@ updateCore() {
 
 installGlobalDeps() {
     if ! [[ -f ~/.c9/installed ]]; then
-        ./install-c9.sh
+        /c9sdk/install-c9.sh
     fi
 }
 
