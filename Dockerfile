@@ -8,7 +8,7 @@ MAINTAINER rvmn <di_blabla@hotmail.com>
 # ------------------------------------------------------------------------------
 # Install base
 RUN apt-get update
-RUN apt-get install -y build-essential g++ curl libssl-dev apache2-utils git libxml2-dev default-jdk python-pip python-dev
+RUN apt-get install -y build-essential g++ curl libssl-dev apache2-utils git libxml2-dev default-jdk python-pip python-dev gcc make zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev
     
 # ------------------------------------------------------------------------------
 # Install NPM 
@@ -38,7 +38,7 @@ RUN pip install virtualenv
 RUN sudo gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
 RUN curl -sSL https://get.rvm.io | sudo bash -s stable
 RUN /usr/local/rvm/bin/rvm install 2.2.1
-RUN /usr/local/rvm/bin/rvm use 2.2.1 --default
+RUN /usr/local/rvm/bin/rvm use 2.2.1
 RUN ruby -v
 RUN echo "gem: --no-ri --no-rdoc" >> ~/.gemrc
 RUN gem install bundler
