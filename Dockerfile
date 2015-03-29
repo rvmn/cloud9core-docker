@@ -65,7 +65,7 @@ RUN git clone https://github.com/c9/core/ /c9sdk
 WORKDIR /c9sdk
 ADD install-sdk.sh ./
 ADD install-c9.sh ./
-RUN ./install-sdk.sh
+RUN echo './install-sdk.sh' | bash
 
 # ------------------------------------------------------------------------------
 # Install Docker in Docker (dind)
