@@ -15,7 +15,7 @@ RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 # ------------------------------------------------------------------------------
 # Install base
 RUN apt-get update
-RUN apt-get install -y build-essential g++ curl libssl-dev apache2-utils git libxml2-dev default-jdk python-pip python-dev gcc make zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev
+RUN apt-get install -y build-essential g++ python curl libssl-dev apache2-utils git libxml2-dev default-jdk python-pip python-dev gcc make zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev
     
 # ------------------------------------------------------------------------------
 # Install NPM 
