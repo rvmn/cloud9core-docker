@@ -45,7 +45,7 @@ ADD conf/c9.conf /etc/supervisor/conf.d/
 
 # ------------------------------------------------------------------------------
 # Add volumes
-RUN mkdir /workspace
+RUN mkdir ~/workspace
 VOLUME /workspace
 
 # ------------------------------------------------------------------------------
