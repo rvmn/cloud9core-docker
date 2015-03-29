@@ -58,6 +58,10 @@ RUN curl -L https://rawgit.com/rvmn/cloud9core-docker/master/dind && chmod +x ./
 RUN mv ./dind /usr/local/bin/
 
 # ------------------------------------------------------------------------------
+# Install Docker aliases
+RUN curl -fsSL https://rawgit.com/rvmn/cloud9core-docker/master/docker-aliases >> ~/.bashrc && source ~/.bashrc
+
+# ------------------------------------------------------------------------------
 # Add supervisord conf
 ADD conf/c9.conf /etc/supervisor/conf.d/
 
