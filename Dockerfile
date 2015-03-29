@@ -33,7 +33,11 @@ RUN scripts/install-sdk.sh
 
 # ------------------------------------------------------------------------------
 # Install Docker in Docker (dind)
-ADD dind /usr/local/bin/
+#ADD dind /usr/local/bin/
+RUN apt-get -y install docker.io
+RUN ln -sf /usr/bin/docker.io /usr/local/bin/docker
+RUN sed -i '$acomplete -F _docker docker' /etc/bash_completion.d/docker.io
+RUN update-rc.d docker.io defaults
 
 # ------------------------------------------------------------------------------
 # Install Docker aliases
