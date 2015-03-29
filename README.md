@@ -21,7 +21,7 @@
     
 ## Install Docker shortcuts (BASH aliases)
 
-    curl -fsSL https://raw.githubusercontent.com/rvmn/cloud9core-docker/master/docker-aliases >> ~/.bashrc && source ~/.bashrc
+    curl -fsSL https://raw.githubusercontent.com/rvmn/cloud9core-docker/master/dockeraliases >> ~/.bashrc && source ~/.bashrc
     dhelp # 'dhelp' shows list of all aliases, learn to use dprm (remove unused containers) and drmi (same for images)
     dalias hello 'echo "world"' # 'dalias' adds an alias, first-arg=name second-arg="commandstring". type 'hello' :D
     ralias dhelp help # rename an alias, can also rename itself ;)
