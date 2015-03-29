@@ -1,30 +1,17 @@
 #c9/core cloud9 SDK dockerfile
 =============
-## Get
+## Get and build
 
-    docker pull soundyogi/cloud9core-docker
-or:
-
-    docker build -t="soundyogi/cloud9core-docker" github.com/soundyogi/cloud9core-docker
+    docker build -t="cloud9core-docker" github.com/rvmn/cloud9core-docker
     
-or:
+## Run
 
-    git clone https://github.com/soundyogi/cloud9core-docker
-    cd c9core-docker/
+    docker run -it -d -p 8181:8181 cloud9core-docker
 
+## Run with Acccessible Workspace
 
-    sudo docker build --force-rm=true --tag="$USER/cloud9core-docker:latest" .
-    
-
-    sudo docker run -d -p 8181:8181 $USER/cloud9core-docker:latest
-    
-    
-## Usage
-
-    docker run -it -d -p 8181:8181 soundyogi/cloud9core-docker
-    
-
-    docker run -it -d -p 8181:8181 -v /your-path/workspace/:/workspace/ soundyogi/cloud9core-docker
+    mkdir ~/workspace
+    docker run -it -d -p 8181:8181 -v ${PWD}/workspace:/workspace/ cloud9core-docker
     
 
 =======
