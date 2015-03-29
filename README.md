@@ -1,4 +1,4 @@
-# Cloud9/core SDK for Docker (with Docker-in-Docker and preinstalled NodeJS/Ruby/Python)
+# Cloud9/core SDK for Docker (with Docker-in-Docker and preinstalled NodeJS/Ruby/Python/Java)
 =============
 ## Get and build
 
