@@ -27,7 +27,8 @@ alias dsavi='echo "stop, save a container to an image, and start it again">0;fds
 alias dprm='echo "remove all containers, except running ones">0;fdprm'
 alias drmi='echo "remove all images, except ones used">0;fdrmi'
 alias dbu='echo "build dockerfile">0;fdbu'
-alias dalias='echo "add alias,e.g. dbalias name command-string">0;fdalias'
+alias dalias='echo "add an alias">0;fdalias'
+alias ralias='echo "rename an alias">0;fralias'
 alias dhelp='echo "show all aliases(this)">0;fdhelp'
 fds(){ docker start $(echo ${1-$(dl)}); }
 fdst(){ docker stop $(echo ${1-$(dl)}); }
@@ -45,3 +46,4 @@ fdrmi() { docker rmi $(docker images -q); }
 fdbu() { docker build -t=$1; }
 fdhelp() { alias | grep 'alias d' | sed 's/^\([^=]*\)=[^"]*"\([^"]*\)">0.*/\1                =>                \2/'| sed "s/['|\']//g" | sort; }
 fdalias(){ grep -q $1 ~/.bashrc && sed "s/$1.*/$1(){ $2 ; }/" -i ~/.bashrc || sed "$ a\\$1(){ $2 ; }" -i ~/.bashrc; source ~/.bashrc }
+fralias(){ sed -i ‘s/$1/$2/’ ~/.bashrc; source ~/.bashrc }
