@@ -3,7 +3,7 @@
 # ------------------------------------------------------------------------------
 # Pull base image.
 FROM dockerfile/supervisor
-MAINTAINER Johannes Jaeger <kontakt@johannesjaeger.com>
+MAINTAINER rvmn <di_blabla@hotmail.com>
 
 # ------------------------------------------------------------------------------
 # Install base
