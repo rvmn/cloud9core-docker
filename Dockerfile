@@ -10,7 +10,8 @@ MAINTAINER rvmn <di_blabla@hotmail.com>
 ENV LANG en_US.UTF-8
 ENV LC_ALL en_US.UTF-8
 RUN chsh -s /bin/bash root
-
+RUN rm /bin/sh && ln -s /bin/bash /bin/sh
+ENV SHELL /bin/bash
 # ------------------------------------------------------------------------------
 # Install base
 RUN apt-get update
