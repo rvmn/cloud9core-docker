@@ -40,14 +40,14 @@ RUN curl -sSL https://get.rvm.io | sudo bash -s stable
 RUN /usr/local/rvm/bin/rvm install 2.2.1
 RUN /usr/local/rvm/bin/rvm use 2.2.1 --default
 RUN ruby -v
-RUN echo "gem: --no-ri --no-rdoc" > ~/.gemrc
+RUN echo "gem: --no-ri --no-rdoc" >> ~/.gemrc
 RUN gem install bundler
 ENV GEM_PATH /lib/ruby/gems
 
 # ------------------------------------------------------------------------------
 # Install Meteor (autoparts)
 RUN ruby -e "$(curl -fsSL https://raw.github.com/nitrous-io/autoparts/master/setup.rb)"
-RUN echo "alias parts='~/.parts/autoparts/bin/parts'" > ~/.bashrc
+RUN echo "alias parts='~/.parts/autoparts/bin/parts'" >> ~/.bashrc
 RUN echo 'source ~/.bashrc' | bash -l
 RUN ~/.parts/autoparts/bin/parts install meteor
 
@@ -59,12 +59,12 @@ RUN scripts/install-sdk.sh
 
 # ------------------------------------------------------------------------------
 # Install Docker in Docker (dind)
-RUN curl -L https://rawgit.com/rvmn/cloud9core-docker/master/dind && chmod +x ./dind
-RUN mv ./dind /usr/local/bin/
+ADD dind /usr/local/bin/
 
 # ------------------------------------------------------------------------------
 # Install Docker aliases
-RUN curl -fsSL https://rawgit.com/rvmn/cloud9core-docker/master/docker-aliases >> ~/.bashrc && source ~/.bashrc
+ADD docker-aliases ~/
+RUN ~/docker-aliases >> ~/.bashrc && source ~/.bashrc
 
 # ------------------------------------------------------------------------------
 # Add supervisord conf
