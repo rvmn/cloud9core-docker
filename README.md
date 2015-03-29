@@ -2,16 +2,18 @@
 =============
 ## Get and build
 
-    docker build -t="cloud9core-docker" github.com/rvmn/cloud9core-docker
+    docker build -t="cloud9" github.com/rvmn/cloud9core-docker
+    OR BETTER (its using caching for when building is reinited)
+    git clone https://github.com/rvmn/cloud9core-docker cloud9 && cd /cloud9 && build -t cloud9
     
 ## Run
 
-    docker run -it -d -p 8181:8181 cloud9core-docker
+    docker run -it -d -p 8181:8181 cloud9
 
 ## Run with Acccessible Workspace
 
     mkdir ~/workspace
-    docker run -it -d -p 8181:8181 -v ${PWD}/workspace:/workspace/ cloud9core-docker
+    docker run -it -d -p 8181:8181 -v ${PWD}/workspace:/workspace/ cloud9
 
 ## Open Cloud9 IDE (assuming local, else IP)
 
