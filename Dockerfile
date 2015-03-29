@@ -63,6 +63,7 @@ RUN ~/.parts/autoparts/bin/parts install meteor
 # Install Cloud9SDK
 RUN git clone https://github.com/c9/core/ /c9sdk
 WORKDIR /c9sdk
+RUN ls -al
 ADD install-sdk.sh ./
 ADD install-c9.sh ./
 RUN chown root * && chmod +x install-sdk.sh && chmod +x install-c9.sh && echo './install-sdk.sh' | bash
