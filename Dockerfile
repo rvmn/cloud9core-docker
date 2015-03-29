@@ -39,7 +39,7 @@ ADD dind /usr/local/bin/
 # Install Docker aliases
 #RUN wget https://raw.githubusercontent.com/rvmn/cloud9core-docker/master/docker-aliases 
 ADD dockeraliases /root/
-RUN ls -al && cat dockeraliases && cat ~/.bashrc
+RUN ls -al && cat /root/dockeraliases && cat ~/.bashrc
 RUN cd /root/ && chmod +x dockeraliases && cat dockeraliases >> ~/.bashrc && /bin/bash -c 'source ~/.bashrc'
 
 # Add supervisord conf
