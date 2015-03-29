@@ -3,19 +3,12 @@
 # ------------------------------------------------------------------------------
 # Pull base image.
 FROM dockerfile/supervisor
-MAINTAINER rvmn <di_blabla@hotmail.com>
-
-# ------------------------------------------------------------------------------
-# Necessary settings
-ENV LANG en_US.UTF-8
-ENV LC_ALL en_US.UTF-8
-RUN chsh -s /bin/bash root
-RUN rm /bin/sh && ln -s /bin/bash /bin/sh
+MAINTAINER Johannes Jaeger <kontakt@johannesjaeger.com>
 
 # ------------------------------------------------------------------------------
 # Install base
 RUN apt-get update
-RUN apt-get install -y build-essential g++ python curl libssl-dev apache2-utils git libxml2-dev default-jdk python-pip python-dev gcc make zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev
+RUN apt-get install -y build-essential g++ curl libssl-dev apache2-utils git libxml2-dev
     
 # ------------------------------------------------------------------------------
 # Install NPM 
@@ -33,39 +26,10 @@ RUN /bin/bash -c '. /.nvm/nvm.sh && \
     nvm alias default v0.10.18'
 
 # ------------------------------------------------------------------------------
-# Install Python (pyenv)
-RUN curl -L https://raw.githubusercontent.com/yyuu/pyenv-installer/master/bin/pyenv-installer | bash
-ENV PATH $HOME/.pyenv/bin:${PATH}
-RUN eval "$(~/.pyenv/bin/pyenv init -)"
-RUN eval "$(~/.pyenv/bin/pyenv virtualenv-init -)"
-RUN pip install virtualenv
-
-# ------------------------------------------------------------------------------
-# Install Ruby (RVM)
-RUN sudo gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
-RUN curl -sSL https://get.rvm.io | bash -s stable --ruby
-RUN /bin/bash -c 'source /usr/local/rvm/scripts/rvm'
-ENV PATH /usr/local/rvm/rubies/ruby-2.2.0/bin:${PATH}
-ENV PATH /usr/local/rvm/bin:${PATH}
-RUN ruby -v && rvm -v
-RUN echo "gem: --no-ri --no-rdoc" >> ~/.gemrc
-RUN gem install bundler
-ENV GEM_PATH /lib/ruby/gems
-
-# ------------------------------------------------------------------------------
-# Install Meteor (autoparts)
-RUN ruby -e "$(curl -fsSL https://raw.github.com/nitrous-io/autoparts/master/setup.rb)"
-RUN echo "alias parts='~/.parts/autoparts/bin/parts'" >> ~/.bashrc
-RUN echo 'source ~/.bashrc' | bash -l
-RUN ~/.parts/autoparts/bin/parts install meteor
-
-# ------------------------------------------------------------------------------
 # Install Cloud9SDK
 RUN git clone https://github.com/c9/core/ /c9sdk
 WORKDIR /c9sdk
-ADD install-sdk.sh ./
-ADD install-c9.sh ./
-RUN chmod +x install-sdk.sh && chmod +x install-c9.sh && echo './install-sdk.sh' | bash
+RUN scripts/install-sdk.sh
 
 # ------------------------------------------------------------------------------
 # Install Docker in Docker (dind)
@@ -76,7 +40,6 @@ ADD dind /usr/local/bin/
 ADD docker-aliases ~/
 RUN ~/docker-aliases >> ~/.bashrc && source ~/.bashrc
 
-# ------------------------------------------------------------------------------
 # Add supervisord conf
 ADD conf/c9.conf /etc/supervisor/conf.d/
 
