@@ -45,14 +45,14 @@ ADD dockeraliases /root/
 RUN chmod +x /root/dockeraliases && cat /root/dockeraliases >> ~/.bashrc && cat ~/.bashrc
 RUN /bin/bash -c 'source ~/.bashrc'
 
-# Add supervisord conf
-ADD conf/c9.conf /etc/supervisor/conf.d/
-
 # ------------------------------------------------------------------------------
 # Add volumes
 RUN mkdir ~/workspace
 VOLUME /workspace
 VOLUME /var/lib/docker
+
+# Add supervisord conf
+ADD conf/c9.conf /etc/supervisor/conf.d/
 
 # ------------------------------------------------------------------------------
 # Clean up APT when done.
