@@ -8,7 +8,7 @@ MAINTAINER Johannes Jaeger <kontakt@johannesjaeger.com>
 # ------------------------------------------------------------------------------
 # Install base
 RUN apt-get update
-RUN apt-get install -y build-essential g++ curl libssl-dev apache2-utils git libxml2-dev default-jdk
+RUN apt-get install -y build-essential g++ curl libssl-dev apache2-utils git libxml2-dev default-jdk python-pip python-dev
     
 # ------------------------------------------------------------------------------
 # Install NPM 
@@ -26,7 +26,7 @@ RUN /bin/bash -c '. /.nvm/nvm.sh && \
     nvm alias default v0.10.18'
 
 # ------------------------------------------------------------------------------
-# Install Python
+# Install Python (pyenv)
 RUN curl -L https://raw.githubusercontent.com/yyuu/pyenv-installer/master/bin/pyenv-installer | bash
 ENV PATH $HOME/.pyenv/bin:${PATH}
 RUN eval "$(~/.pyenv/bin/pyenv init -)"
@@ -34,7 +34,7 @@ RUN eval "$(~/.pyenv/bin/pyenv virtualenv-init -)"
 RUN pip install virtualenv
 
 # ------------------------------------------------------------------------------
-# Install Ruby
+# Install Ruby (RVM)
 RUN sudo gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
 RUN curl -sSL https://get.rvm.io | sudo bash -s stable
 #RUN echo 'source ~/.rvm/scripts/rvm' | bash -l
@@ -43,8 +43,14 @@ RUN /usr/local/rvm/bin/rvm use 2.2.1 --default
 RUN ruby -v
 RUN echo "gem: --no-ri --no-rdoc" > ~/.gemrc
 RUN gem install bundler
-#RUN gem install rails -v 4.2.0
 ENV GEM_PATH /lib/ruby/gems
+
+# ------------------------------------------------------------------------------
+# Install Meteor (autoparts)
+RUN ruby -e "$(curl -fsSL https://raw.github.com/nitrous-io/autoparts/master/setup.rb)"
+RUN echo "alias parts='~/.parts/autoparts/bin/parts'" > ~/.bashrc
+RUN echo 'source ~/.bashrc' | bash -l
+RUN ~/.parts/autoparts/bin/parts install meteor
 
 # ------------------------------------------------------------------------------
 # Install Cloud9SDK
