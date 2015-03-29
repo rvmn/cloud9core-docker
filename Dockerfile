@@ -38,7 +38,7 @@ ADD dind /usr/local/bin/
 # ------------------------------------------------------------------------------
 # Install Docker aliases
 ADD dockeraliases /root/
-RUN chmod +x /root/dockeraliases && cat /root/dockeraliases >> ~/.bashrc && cat ~/.bashr
+RUN chmod +x /root/dockeraliases && cat /root/dockeraliases >> ~/.bashrc && cat ~/.bashrc
 RUN /bin/bash -c 'source ~/.bashrc'
 
 # Add supervisord conf
