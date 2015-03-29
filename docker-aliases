@@ -30,8 +30,8 @@ alias dbu='echo "build dockerfile">0;fdbu'
 alias dalias='echo "add an alias">0;fdalias'
 alias ralias='echo "rename an alias">0;fralias'
 alias dhelp='echo "show all aliases(this)">0;fdhelp'
-fds(){ docker start $(echo ${1-$(dl)}); }
-fdst(){ docker stop $(echo ${1-$(dl)}); }
+fds() { docker start $(echo ${1-$(dl)}); }
+fdst() { docker stop $(echo ${1-$(dl)}); }
 fdsh() { docker run -it $1 /bin/bash; }
 fdish() { docker run --privileged -it --entrypoint=/bin/bash $1 -i; }
 fdind() { docker run --privileged -it --entrypoint=$2 $1; }
@@ -45,5 +45,5 @@ fdprm() { docker rm $(docker ps -a -q); }
 fdrmi() { docker rmi $(docker images -q); }
 fdbu() { docker build -t=$1; }
 fdhelp() { alias | grep 'alias d' | sed 's/^\([^=]*\)=[^"]*"\([^"]*\)">0.*/\1                =>                \2/'| sed "s/['|\']//g" | sort; }
-fdalias(){ grep -q $1 ~/.bashrc && sed "s/$1.*/$1(){ $2 ; }/" -i ~/.bashrc || sed "$ a\\$1(){ $2 ; }" -i ~/.bashrc; source ~/.bashrc }
-fralias(){ sed -i ‘s/$1/$2/’ ~/.bashrc; source ~/.bashrc }
+fdalias() { grep -q $1 ~/.bashrc && sed "s/$1.*/$1(){ $2 ; }/" -i ~/.bashrc || sed "$ a\\$1(){ $2 ; }" -i ~/.bashrc; source ~/.bashrc }
+fralias() { sed -i ‘s/$1/$2/’ ~/.bashrc; source ~/.bashrc }
