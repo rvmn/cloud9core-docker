@@ -26,15 +26,15 @@ RUN /bin/bash -c '. /.nvm/nvm.sh && \
     nvm alias default v0.10.18'
 
 # ------------------------------------------------------------------------------
-
-# python
+# Install Python
 RUN curl -L https://raw.githubusercontent.com/yyuu/pyenv-installer/master/bin/pyenv-installer | bash
 ENV PATH $HOME/.pyenv/bin:${PATH}
 RUN eval "$(~/.pyenv/bin/pyenv init -)"
 RUN eval "$(~/.pyenv/bin/pyenv virtualenv-init -)"
 RUN pip install virtualenv
 
-# ruby
+# ------------------------------------------------------------------------------
+# Install Ruby
 RUN sudo gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
 RUN curl -sSL https://get.rvm.io | sudo bash -s stable
 #RUN echo 'source ~/.rvm/scripts/rvm' | bash -l
@@ -46,15 +46,18 @@ RUN gem install bundler
 #RUN gem install rails -v 4.2.0
 ENV GEM_PATH /lib/ruby/gems
 
+# ------------------------------------------------------------------------------
 # Install Cloud9SDK
 RUN git clone https://github.com/c9/core/ /c9sdk
 WORKDIR /c9sdk
 RUN scripts/install-sdk.sh
 
-# Set up Docker in Docker (dind)
-RUN wget https://rawgit.com/rvmn/docker-dev-cloud9/master/dind && chmod +x ./dind
+# ------------------------------------------------------------------------------
+# Install Docker in Docker (dind)
+RUN curl -L https://rawgit.com/rvmn/cloud9core-docker/master/dind && chmod +x ./dind
 RUN mv ./dind /usr/local/bin/
 
+# ------------------------------------------------------------------------------
 # Add supervisord conf
 ADD conf/c9.conf /etc/supervisor/conf.d/
 
