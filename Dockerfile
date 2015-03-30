@@ -1,9 +1,12 @@
-# ------------------------------------------------------------------------------
-# Based on a work at https://github.com/docker/docker.
-# ------------------------------------------------------------------------------
+#
+# Based on:
+#
+# https://github.com/TAKEALOT/nodervisor            => Nodervisor
+# https://github.com/dockerfile/ubuntu-desktop      => Ubuntu Desktop
+# https://github.com/jpetazzo/dind/                 => Docker-in-Docker
+# https://github.com/soundyogi/cloud9core-docker/   => Cloud9-docker
 # Pull base image.
 FROM dockerfile/supervisor
-MAINTAINER rvmn <di_blabla@hotmail.com>
 
 # ------------------------------------------------------------------------------
 # Install base
@@ -32,12 +35,24 @@ WORKDIR /c9sdk
 RUN scripts/install-sdk.sh
 
 # ------------------------------------------------------------------------------
-# Install Docker in Docker (dind)
-#ADD dind /usr/local/bin/
-RUN apt-get -y install docker.io
-RUN ln -sf /usr/bin/docker.io /usr/local/bin/docker
-RUN sed -i '$acomplete -F _docker docker' /etc/bash_completion.d/docker.io
-RUN update-rc.d docker.io defaults
+# Setup LXDE VNC system
+# Install LXDE and VNC server.
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y lxde-core lxterminal tightvncserver 
+ENV USER=root
+
+# ------------------------------------------------------------------------------
+# Install Nodervisor
+RUN git clone https://github.com/TAKEALOT/nodervisor ~/ && cd ~/nodervisor $$ npm install && chmod +x app.js && chmod +x config.js && sed -i s/1234567890ABCDEF/"$(od -vAn -N4 -tu4 < /dev/urandom)"/ config.js && sed -i "s/3000/3200/" config.js
+
+# ------------------------------------------------------------------------------
+# Install Docker
+RUN apt-get update -qq && apt-get install -qqy \
+    apt-transport-https \
+    ca-certificates \
+    curl \
+    lxc \
+    iptables
+RUN curl -sSL https://get.docker.com/ubuntu/ | sh
 
 # ------------------------------------------------------------------------------
 # Install Docker aliases
@@ -46,13 +61,17 @@ RUN chmod +x /root/dockeraliases && cat /root/dockeraliases >> ~/.bashrc && cat 
 RUN /bin/bash -c 'source ~/.bashrc'
 
 # ------------------------------------------------------------------------------
+# Add supervisord conf and wrapdocker
+ADD conf/c9.conf /etc/supervisor/conf.d/
+ADD ./wrapdocker /usr/local/bin/wrapdocker
+RUN chmod +x /usr/local/bin/wrapdocker
+
+# ------------------------------------------------------------------------------
 # Add volumes
-RUN mkdir ~/workspace
+RUN mkdir /workspace
+RUN mkdir /var/lib/docker
 VOLUME /workspace
 VOLUME /var/lib/docker
-
-# Add supervisord conf
-ADD conf/c9.conf /etc/supervisor/conf.d/
 
 # ------------------------------------------------------------------------------
 # Clean up APT when done.
@@ -60,7 +79,9 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # ------------------------------------------------------------------------------
 # Expose ports.
-EXPOSE 8181
+EXPOSE 8181 # Expose cloud9
+EXPOSE 5901 # Expose VNC LXDE
+EXPOSE 3200 # Expose nodervisor
 
 # ------------------------------------------------------------------------------
 # Start supervisor, define default command.
