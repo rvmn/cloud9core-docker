@@ -6,11 +6,22 @@
 # https://github.com/jpetazzo/dind/                 => Docker-in-Docker
 # https://github.com/soundyogi/cloud9core-docker/   => Cloud9-docker
 # Pull base image.
-FROM dockerfile/supervisor
+FROM ubuntu:latest
 
+# Maintainer Informaion
+MAINTAINER @rvmn
+
+# Update the base image
+RUN sed -i.bak 's/main$/main universe/' /etc/apt/sources.list
+RUN apt-get update && apt-get upgrade -qq
+
+# Install Supervisord
+RUN apt-get install -qq supervisor
+
+# Make the necessary folders for Supervisord
+RUN mkdir -p /var/log/supervisor /etc/supervisor/conf.d
 # ------------------------------------------------------------------------------
 # Install base
-RUN apt-get update
 RUN apt-get install -y build-essential g++ curl libssl-dev apache2-utils git libxml2-dev
     
 # ------------------------------------------------------------------------------
@@ -62,7 +73,13 @@ RUN /bin/bash -c 'source ~/.bashrc'
 
 # ------------------------------------------------------------------------------
 # Add supervisord conf and wrapdocker
+# Make the necessary folders for Supervisord
+RUN mkdir -p /var/log/supervisor /etc/supervisor/conf.d
+
+# Add the base configuration file for Supervisord
+ADD supervisor.conf /etc/supervisor.conf
 ADD conf/c9.conf /etc/supervisor/conf.d/
+
 ADD ./wrapdocker /usr/local/bin/wrapdocker
 RUN chmod +x /usr/local/bin/wrapdocker
 
