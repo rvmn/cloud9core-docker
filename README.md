@@ -3,9 +3,7 @@
 ## Get and build
 
     docker build -t="cloud9" github.com/rvmn/cloud9core-docker
-        OR BETTER (using caching for building the image):
-    git clone https://github.com/rvmn/cloud9core-docker cloud9 && cd cloud9 && docker build -t cloud9 .
-    
+
 ## Run
 
     docker run -it -d -p 8181:8181 cloud9
