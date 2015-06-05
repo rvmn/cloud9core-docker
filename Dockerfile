@@ -96,9 +96,12 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # ------------------------------------------------------------------------------
 # Expose ports.
-EXPOSE 8181 # Expose cloud9
-EXPOSE 5901 # Expose VNC LXDE
-EXPOSE 3200 # Expose nodervisor
+ # Expose cloud9
+EXPOSE 8181
+ # Expose VNC LXDE
+EXPOSE 5901
+ # Expose nodervisor
+EXPOSE 3200 
 
 # ------------------------------------------------------------------------------
 # Start supervisor, define default command.
