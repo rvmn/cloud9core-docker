@@ -78,7 +78,7 @@ RUN mkdir -p /var/log/supervisor /etc/supervisor/conf.d
 
 # Add the base configuration file for Supervisord
 ADD supervisor.conf /etc/supervisor.conf
-ADD conf/c9.conf /etc/supervisor/conf.d/
+ADD conf/ /etc/supervisor/conf.d/
 
 ADD ./wrapdocker /usr/local/bin/wrapdocker
 RUN chmod +x /usr/local/bin/wrapdocker
