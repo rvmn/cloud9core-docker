@@ -53,7 +53,7 @@ ENV USER=root
 
 # ------------------------------------------------------------------------------
 # Install Nodervisor
-RUN git clone https://github.com/TAKEALOT/nodervisor ~/ && cd ~/nodervisor $$ npm install && chmod +x app.js && chmod +x config.js && sed -i s/1234567890ABCDEF/"$(od -vAn -N4 -tu4 < /dev/urandom)"/ config.js && sed -i "s/3000/3200/" config.js
+RUN git clone https://github.com/TAKEALOT/nodervisor ~/nodervisor && cd ~/nodervisor $$ npm install && chmod +x app.js && chmod +x config.js && sed -i s/1234567890ABCDEF/"$(od -vAn -N4 -tu4 < /dev/urandom)"/ config.js && sed -i "s/3000/3200/" config.js
 
 # ------------------------------------------------------------------------------
 # Install Docker
