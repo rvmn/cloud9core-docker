@@ -1,6 +1,6 @@
 #!/bin/sh -x
 
-. ~/build/config.sh
+. /build/config.sh
 
 apt-get update -y
 
