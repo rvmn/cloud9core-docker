@@ -15,9 +15,10 @@ RUN chmod +x /build/config.sh && \
     chmod +x /build/build.sh && \
     chmod +x /build/run.sh && \
     chmod +x /build/cleanup.sh
-RUN /build/build.sh && \
-    /build/run.sh && \
-    /build/cleanup.sh && rm -rf /build
+RUN /build/build.sh
+RUN /build/run.sh && \
+RUN /build/cleanup.sh && rm -rf /build
+
 # Set shared directories
 RUN mkdir /workspace
 VOLUME /workspace
