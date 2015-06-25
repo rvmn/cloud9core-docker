@@ -4,8 +4,8 @@
 
 apt-get update -y
 
-echo "$PRE_RUN" | bash -l
+echo "$PRE_RUN" | bash
 
 apt-get install $minimal_apt_get_args $RUN_PACKAGES
 
-echo "$POST_RUN" | bash -l
+echo "$POST_RUN" | bash
