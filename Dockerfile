@@ -11,10 +11,9 @@ ADD dockeraliases /root/
 ADD https://get.docker.io/builds/Linux/x86_64/docker-latest /usr/local/bin/docker
 
 # Run installations
-RUN chmod +x ~/*.sh && \ 
-    ~/build.sh && \
-    ~/run.sh && \
-    ~/cleanup.sh && rm -rf ~/*.sh
+RUN chmod +x ~/build.sh && ~/build.sh && \
+    chmod +x ~/run.sh && ~/run.sh && \
+    chmod +x ~/cleanup.sh && ~/cleanup.sh && rm -rf ~/*.sh
 
 # Set shared directories
 RUN mkdir /workspace
