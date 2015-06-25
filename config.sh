@@ -28,7 +28,9 @@ ruby -e '$(curl -fsSL https://raw.github.com/nitrous-io/autoparts/master/setup.r
 curl -sSL https://get.docker.com/ubuntu/ | sh &&\
 sed -i -e 's_127.0.0.1_0.0.0.0_g' /cloud9/configs/standalone.js &&\
 chmod +x /root/dockeraliases && cat /root/dockeraliases >> ~/.bashrc &&\
-source ~/.bashrc"
+source ~/.bashrc &&\
+git clone https://github.com/c9/core.git /cloud9 &&\
+scripts/install-sdk.sh"
 
 ## Build time dependencies ##
 BUILD_PACKAGES="build-essential g++ curl libssl-dev apache2-utils git libxml2-dev sshfs wget nano patch gawk gcc make libc6-dev patch libreadline6-dev zlib1g-dev libssl-dev libyaml-dev libsqlite3-dev sqlite3 autoconf libgdbm-dev libncurses5-dev automake libtool bison pkg-config libffi-dev"
