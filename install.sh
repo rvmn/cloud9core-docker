@@ -5,7 +5,7 @@ read conf
 if [ "$conf" == "Y" ]; then
   echo "Enter the MongoDB url:"
   read mongo
-  echo "ENV $mongo" >> Dockerfile
+  echo "ENV MONGO_URL $mongo" >> Dockerfile
 fi
 echo "Use a username & pass for Cloud9 [Y/n]:"
 read conf
