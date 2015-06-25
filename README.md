@@ -1,33 +1,28 @@
-# Cloud9/core SDK for Docker (with Docker-in-Docker and preinstalled NodeJS/Ruby/Python/Java)
+# Cloud9/core IDE container for Docker (with preinstalled NodeJS/Ruby/Python/Java)
 =============
-## Get and build
+## Get and install
 
-    docker build -t="cloud9" github.com/rvmn/cloud9core-docker
+    wget https://raw.githubusercontent.com/rvmn/cloud9core-docker/master/install.sh && chmod +x install.sh && ./install.sh
 
 ## Run
 
-    docker run -it -d -p 8181:8181 cloud9
+    dcrun
 
-## Run with Acccessible Workspace
-
-    mkdir ~/workspace
-    docker run -it -d -p 8181:8181 -v ${PWD}/workspace:/workspace/ cloud9
-
+## 
 ## Open Cloud9 IDE (assuming local, else IP)
 
     localhost:8181
     
-## Install Docker shortcuts (BASH aliases)
+## Using Docker shortcuts (BASH aliases)
 
-    curl -fsSL https://raw.githubusercontent.com/rvmn/cloud9core-docker/master/dockeraliases >> ~/.bashrc && source ~/.bashrc
-    dhelp # 'dhelp' shows list of all aliases, learn to use dprm (remove unused containers) and drmi (same for images)
-    dalias hello 'echo "world"' # 'dalias' adds an alias, first-arg=name second-arg="commandstring". type 'hello' :D
-    ralias dhelp help # rename an alias, can also rename itself ;)
+    dhelp # 'dhelp' shows list of all aliases
+    dalias # 'dalias' adds an alias, first-arg=name second-arg="commandstring".
+    ralias # rename an alias, can also rename itself ;)
     
 ## Install Rails (from within Cloud9 IDE)
     
     gem install rails
 
 =======
-# c9core-docker
-Cloud9/core SDK for Docker (with Docker-in-Docker)
+# cloud9core-docker
+Cloud9/core IDE for Docker (with Docker-in-Docker)
