@@ -11,7 +11,8 @@ ADD dockeraliases /root/
 ADD https://get.docker.io/builds/Linux/x86_64/docker-latest /usr/local/bin/docker
 
 # Run installations
-RUN chmod +x /build/build.sh && \
+RUN chmod +x /build/config.sh && \
+    chmod +x /build/build.sh && \
     chmod +x /build/run.sh && \
     chmod +x /build/cleanup.sh
 RUN /build/build.sh && \
