@@ -4,6 +4,7 @@ FROM kdelfour/supervisor-docker
 MAINTAINER Roberto van Maanen <roberto.vanmaanen@gmail.com>
 
 # Copy + Add files
+RUN cd ~ && mkdir build
 COPY *.sh ~/build/
 ADD ./wrapdocker /usr/local/bin/wrapdocker
 ADD supervisord.conf /etc/supervisor/conf.d/
