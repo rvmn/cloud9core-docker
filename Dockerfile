@@ -4,17 +4,16 @@ FROM kdelfour/supervisor-docker
 MAINTAINER Roberto van Maanen <roberto.vanmaanen@gmail.com>
 
 # Copy + Add files
-RUN mkdir -p ~/build/
-COPY *.sh ~/build/
+COPY *.sh /root/
 ADD ./wrapdocker /usr/local/bin/wrapdocker
 ADD supervisord.conf /etc/supervisor/conf.d/
 ADD dockeraliases /root/
 ADD https://get.docker.io/builds/Linux/x86_64/docker-latest /usr/local/bin/docker
 
 # Run installations
-RUN ~/build/build.sh && \
-    ~/build/run.sh && \
-    ~/build/cleanup.sh && rm -rf ~/build
+RUN ~/build.sh && \
+    ~/run.sh && \
+    ~/cleanup.sh && rm -rf ~/*.sh
 
 # Set shared directories
 RUN mkdir /workspace
